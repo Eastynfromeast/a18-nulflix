@@ -48,7 +48,7 @@ function Header() {
 					</NavItem>
 					<NavItem>
 						<Link to="/coming-soon">
-							ComingSoon
+							Coming Soon
 							{comingSoonMatch && <HeaderDot layoutId="index" />}
 						</Link>
 					</NavItem>
