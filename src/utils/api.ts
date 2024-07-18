@@ -12,7 +12,7 @@ export function getComingSoon() {
 	return fetch(`${BASE_URL}/coming-soon`).then(r => r.json());
 }
 
-export function getMovie(id: string) {
+export function getMovie(id: number) {
 	return fetch(`${BASE_URL}/movie?id=${id}`).then(r => r.json());
 }
 

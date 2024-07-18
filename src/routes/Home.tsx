@@ -1,9 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
-import { getPopular, makeImagePath } from "../utils/api";
+import { getMovie, getPopular, makeImagePath } from "../utils/api";
 import { IDataResults, IMovie } from "../utils/types";
 import styled from "styled-components";
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const Container = styled.div`
 	position: relative;
@@ -67,12 +67,17 @@ function Home() {
 		queryFn: () => getPopular(),
 	});
 
-	const [clickedMovie, setClickedMovie] = useState<null | IMovie>(null);
+	const [clickedMovie, setClickedMovie] = useState<null | number>(null);
 	const onClickMovie = (id: number) => {
-		const foundMovie = data?.results.find(movie => id === movie.id);
-		if (foundMovie) setClickedMovie(foundMovie);
+		setClickedMovie(id);
 	};
 	const toggleModal = () => setClickedMovie(null);
+
+	const { data: movieData, isLoading: isMovieLoading } = useQuery<IMovie>({
+		queryKey: ["movie", "detail"],
+		queryFn: () => getMovie(clickedMovie!),
+		enabled: clickedMovie !== null,
+	});
 
 	return (
 		<Container>
@@ -94,9 +99,7 @@ function Home() {
 					</MovieGrid>
 					{clickedMovie && (
 						<Overlay onClick={toggleModal}>
-							<Card layoutId={clickedMovie.id + ""}>
-								<img src={makeImagePath(clickedMovie.poster_path)} alt={clickedMovie.title} />
-							</Card>
+							<Card layoutId={clickedMovie + ""}>{movieData?.title}</Card>
 						</Overlay>
 					)}
 				</>
