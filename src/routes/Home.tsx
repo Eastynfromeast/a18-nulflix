@@ -47,9 +47,10 @@ const Overlay = styled(motion.div)`
 const Card = styled(motion.div)`
 	overflow: hidden;
 	display: flex;
-	justify-content: center;
-	background-color: #fff;
-	color: #000;
+	flex-direction: column;
+	justify-content: flex-start;
+	background-color: ${props => props.theme.bgColor};
+	color: ${props => props.theme.textColor};
 	width: 50%;
 	height: 50%;
 	max-width: 480px;
@@ -66,6 +67,7 @@ function Home() {
 		queryKey: ["popular", ""],
 		queryFn: () => getPopular(),
 	});
+	console.log(data);
 
 	const [clickedMovie, setClickedMovie] = useState<null | number>(null);
 	const onClickMovie = (id: number) => {
@@ -78,7 +80,7 @@ function Home() {
 		queryFn: () => getMovie(clickedMovie!),
 		enabled: clickedMovie !== null,
 	});
-
+	console.log(movieData);
 	return (
 		<Container>
 			{" "}
@@ -97,9 +99,18 @@ function Home() {
 							</Movie>
 						))}
 					</MovieGrid>
-					{clickedMovie && (
+					{movieData && clickedMovie && (
 						<Overlay onClick={toggleModal}>
-							<Card layoutId={clickedMovie + ""}>{movieData?.title}</Card>
+							<Card layoutId={clickedMovie + ""}>
+								<img src={makeImagePath(movieData?.backdrop_path)} />
+								<h2>{movieData.title}</h2>
+								<ul>
+									{movieData.genres?.map(genre => (
+										<li>{genre.name}</li>
+									))}
+								</ul>
+								<p>{movieData.overview}</p>
+							</Card>
 						</Overlay>
 					)}
 				</>

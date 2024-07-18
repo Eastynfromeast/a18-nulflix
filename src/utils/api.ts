@@ -1,7 +1,9 @@
 const BASE_URL = "https://movies-api.nomadcoders.workers.dev";
+const API_KEY = "538b777273f0fd37c37dfdd6101c1a53";
+const ORIGINAL_URL = "https://api.themoviedb.org/3";
 
 export function getPopular() {
-	return fetch(`${BASE_URL}/popular`).then(r => r.json());
+	return fetch(`${ORIGINAL_URL}/movie/popular?api_key=${API_KEY}`).then(r => r.json());
 }
 
 export function getNowPlaying() {
