@@ -113,7 +113,7 @@ function Home() {
 	const onClickMovie = (id: number) => {
 		setClickedMovie(id);
 	};
-	const toggleModal = () => setClickedMovie(null);
+	const closeModal = () => setClickedMovie(null);
 
 	return (
 		<Container>
@@ -133,7 +133,7 @@ function Home() {
 							</Movie>
 						))}
 					</MovieGrid>
-					{clickedMovie && <MovieCard toggleModal={toggleModal} clickedMovie={clickedMovie} />}
+					{clickedMovie && <MovieCard onOverlayClick={closeModal} clickedMovie={clickedMovie} />}
 				</>
 			)}
 		</Container>

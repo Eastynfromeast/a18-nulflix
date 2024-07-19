@@ -13,7 +13,12 @@ const Overlay = styled(motion.div)`
 	height: 100%;
 	position: fixed;
 	top: 0;
+	left: 0;
 	background-size: cover;
+	@media only screen and (max-width: 480px) {
+		flex-direction: column;
+		padding: 0 20px;
+	}
 `;
 
 const Card = styled(motion.div)`
@@ -29,6 +34,9 @@ const Card = styled(motion.div)`
 	img {
 		width: 100%;
 		object-fit: cover;
+	}
+	@media only screen and (max-width: 480px) {
+		width: 100%;
 	}
 `;
 
@@ -49,6 +57,9 @@ const ContextCard = styled(Card)`
 		font-weight: 600;
 		font-size: 2.5em;
 		margin-bottom: 15px;
+	}
+	@media only screen and (max-width: 480px) {
+		position: absolute;
 	}
 `;
 
@@ -75,10 +86,10 @@ const Overview = styled.p`
 
 interface IProps {
 	clickedMovie: number;
-	toggleModal: () => void;
+	onOverlayClick: () => void;
 }
 
-function MovieCard({ clickedMovie, toggleModal }: IProps) {
+function MovieCard({ clickedMovie, onOverlayClick }: IProps) {
 	const { data: movieData, isLoading: isMovieLoading } = useQuery<IMovie>({
 		queryKey: ["movie", "detail"],
 		queryFn: () => getMovie(clickedMovie!),
@@ -88,8 +99,9 @@ function MovieCard({ clickedMovie, toggleModal }: IProps) {
 	const overlayBg = movieData?.backdrop_path
 		? `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${makeBgPath(movieData?.backdrop_path)})`
 		: "rgba(0,0,0,.5)";
+
 	return (
-		<Overlay onClick={toggleModal} style={{ background: overlayBg }}>
+		<Overlay onClick={onOverlayClick} style={{ background: overlayBg }}>
 			{movieData && (
 				<>
 					<PosterCard layoutId={clickedMovie + ""} $bgPhoto={makeImagePath(movieData?.poster_path)}></PosterCard>
@@ -97,12 +109,12 @@ function MovieCard({ clickedMovie, toggleModal }: IProps) {
 						<h2>{movieData?.title}</h2>
 						<SmallTitle>Genres</SmallTitle>
 						<Genres>
-							{movieData?.genres?.map(genre => (
+							{movieData.genres?.map(genre => (
 								<li key={genre.id}>{genre.name}</li>
 							))}
 						</Genres>
 						<SmallTitle>Overview</SmallTitle>
-						<Overview>{movieData?.overview}</Overview>
+						<Overview>{movieData.overview === "" ? "There is no overview written " : movieData.overview}</Overview>
 					</ContextCard>
 				</>
 			)}
