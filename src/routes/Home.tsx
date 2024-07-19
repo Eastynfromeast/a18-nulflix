@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { getMovie, getPopular, makeImagePath } from "../utils/api";
+import { getMovie, getPopular, makeBgPath, makeImagePath } from "../utils/api";
 import { IDataResults, IMovie } from "../utils/types";
 import styled from "styled-components";
 import { motion } from "framer-motion";
@@ -33,23 +33,25 @@ const Movie = styled(motion.li)`
 	}
 `;
 
-const Overlay = styled(motion.div)`
+const Overlay = styled(motion.div)<{ $bgPhoto: string }>`
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	width: 100%;
 	height: 100%;
-	background-color: rgba(0, 0, 0, 0.75);
 	position: fixed;
 	top: 0;
+	background: url(${props => props.$bgPhoto}) no-repeat;
+	background-size: cover;
 `;
 
-const Card = styled(motion.div)`
+const Card = styled(motion.div)<{ $bgPhoto: string }>`
 	overflow: hidden;
 	display: flex;
 	flex-direction: column;
 	justify-content: flex-start;
-	background-color: ${props => props.theme.bgColor};
+	/* background-color: ${props => props.theme.bgColor}; */
+	background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${props => props.$bgPhoto});
 	color: ${props => props.theme.textColor};
 	width: 50%;
 	height: 50%;
@@ -62,13 +64,49 @@ const Card = styled(motion.div)`
 	}
 `;
 
+const CardContext = styled(motion.div)`
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	gap: 7px;
+	width: 100%;
+	height: 100%;
+	padding: 0 20px;
+	font-size: 16px;
+	word-break: keep-all;
+	h2 {
+		font-weight: 600;
+		font-size: 2.5em;
+		margin-bottom: 15px;
+	}
+`;
+
+const Genres = styled.ul`
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	align-items: center;
+	width: 100%;
+	gap: 10px;
+`;
+
+const SmallTitle = styled.span`
+	display: block;
+	width: 100%;
+	font-weight: 500;
+	opacity: 0.75;
+`;
+
+const Overview = styled.p`
+	line-height: 1.35;
+`;
+
 function Home() {
 	const { data, isLoading } = useQuery<IDataResults>({
 		queryKey: ["popular", ""],
 		queryFn: () => getPopular(),
 	});
 	console.log(data);
-
 	const [clickedMovie, setClickedMovie] = useState<null | number>(null);
 	const onClickMovie = (id: number) => {
 		setClickedMovie(id);
@@ -80,7 +118,7 @@ function Home() {
 		queryFn: () => getMovie(clickedMovie!),
 		enabled: clickedMovie !== null,
 	});
-	console.log(movieData);
+
 	return (
 		<Container>
 			{" "}
@@ -100,16 +138,19 @@ function Home() {
 						))}
 					</MovieGrid>
 					{movieData && clickedMovie && (
-						<Overlay onClick={toggleModal}>
-							<Card layoutId={clickedMovie + ""}>
-								<img src={makeImagePath(movieData?.backdrop_path)} />
-								<h2>{movieData.title}</h2>
-								<ul>
-									{movieData.genres?.map(genre => (
-										<li>{genre.name}</li>
-									))}
-								</ul>
-								<p>{movieData.overview}</p>
+						<Overlay onClick={toggleModal} $bgPhoto={makeBgPath(movieData.backdrop_path)}>
+							<Card layoutId={clickedMovie + ""} $bgPhoto={makeImagePath(movieData.poster_path)}>
+								<CardContext>
+									<h2>{movieData.title}</h2>
+									<SmallTitle>Genres</SmallTitle>
+									<Genres>
+										{movieData.genres?.map(genre => (
+											<li>{genre.name}</li>
+										))}
+									</Genres>
+									<SmallTitle>Overview</SmallTitle>
+									<Overview>{movieData.overview}</Overview>
+								</CardContext>
 							</Card>
 						</Overlay>
 					)}

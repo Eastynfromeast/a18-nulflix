@@ -15,7 +15,8 @@ export function getComingSoon() {
 }
 
 export function getMovie(id: number) {
-	return fetch(`${BASE_URL}/movie?id=${id}`).then(r => r.json());
+	// return fetch(`${BASE_URL}/movie?id=${id}`).then(r => r.json());
+	return fetch(`${ORIGINAL_URL}/movie/${id}?api_key=${API_KEY}`).then(r => r.json());
 }
 
 export function makeImagePath(image: string) {
