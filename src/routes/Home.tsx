@@ -4,6 +4,7 @@ import { IDataResults, IMovie } from "../utils/types";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import MovieCard from "../components/MovieCard";
 
 const Container = styled.div`
 	position: relative;
@@ -37,21 +38,19 @@ const Overlay = styled(motion.div)<{ $bgPhoto: string }>`
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	gap: 15px;
 	width: 100%;
 	height: 100%;
 	position: fixed;
 	top: 0;
-	background: url(${props => props.$bgPhoto}) no-repeat;
+	background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${props => props.$bgPhoto}) no-repeat;
 	background-size: cover;
 `;
 
-const Card = styled(motion.div)<{ $bgPhoto: string }>`
+const Card = styled(motion.div)`
 	overflow: hidden;
 	display: flex;
 	flex-direction: column;
-	justify-content: flex-start;
-	/* background-color: ${props => props.theme.bgColor}; */
-	background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${props => props.$bgPhoto});
 	color: ${props => props.theme.textColor};
 	width: 50%;
 	height: 50%;
@@ -64,16 +63,19 @@ const Card = styled(motion.div)<{ $bgPhoto: string }>`
 	}
 `;
 
-const CardContext = styled(motion.div)`
+const PosterCard = styled(Card)<{ $bgPhoto: string }>`
+	background-image: url(${props => props.$bgPhoto});
+`;
+
+const ContextCard = styled(Card)`
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	gap: 7px;
-	width: 100%;
-	height: 100%;
-	padding: 0 20px;
+	padding: 0 20px 50px;
 	font-size: 16px;
 	word-break: keep-all;
+	background-color: rgba(0, 0, 0, 0.75);
 	h2 {
 		font-weight: 600;
 		font-size: 2.5em;
@@ -95,6 +97,7 @@ const SmallTitle = styled.span`
 	width: 100%;
 	font-weight: 500;
 	opacity: 0.75;
+	margin-top: 15px;
 `;
 
 const Overview = styled.p`
@@ -106,18 +109,11 @@ function Home() {
 		queryKey: ["popular", ""],
 		queryFn: () => getPopular(),
 	});
-	console.log(data);
 	const [clickedMovie, setClickedMovie] = useState<null | number>(null);
 	const onClickMovie = (id: number) => {
 		setClickedMovie(id);
 	};
 	const toggleModal = () => setClickedMovie(null);
-
-	const { data: movieData, isLoading: isMovieLoading } = useQuery<IMovie>({
-		queryKey: ["movie", "detail"],
-		queryFn: () => getMovie(clickedMovie!),
-		enabled: clickedMovie !== null,
-	});
 
 	return (
 		<Container>
@@ -137,23 +133,7 @@ function Home() {
 							</Movie>
 						))}
 					</MovieGrid>
-					{movieData && clickedMovie && (
-						<Overlay onClick={toggleModal} $bgPhoto={makeBgPath(movieData.backdrop_path)}>
-							<Card layoutId={clickedMovie + ""} $bgPhoto={makeImagePath(movieData.poster_path)}>
-								<CardContext>
-									<h2>{movieData.title}</h2>
-									<SmallTitle>Genres</SmallTitle>
-									<Genres>
-										{movieData.genres?.map(genre => (
-											<li>{genre.name}</li>
-										))}
-									</Genres>
-									<SmallTitle>Overview</SmallTitle>
-									<Overview>{movieData.overview}</Overview>
-								</CardContext>
-							</Card>
-						</Overlay>
-					)}
+					{clickedMovie && <MovieCard toggleModal={toggleModal} clickedMovie={clickedMovie} />}
 				</>
 			)}
 		</Container>
