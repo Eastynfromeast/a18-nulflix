@@ -1,14 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
-import { getPopular, makeImagePath } from "../utils/api";
+import { getPopular } from "../utils/api";
 import { IDataResults } from "../utils/types";
 import styled from "styled-components";
 import { motion } from "framer-motion";
-import MovieList from "../components/MovieList";
-
-const Container = styled.div`
-	position: relative;
-	padding: 15px;
-`;
+import ScreenLayout from "../layout/ScreenLayout";
+import Loader from "../components/Loader";
 
 const MainVisual = styled(motion.div)`
 	width: 100%;
@@ -23,19 +19,10 @@ function Home() {
 	});
 
 	return (
-		<Container>
-			{" "}
-			{isLoading && <p>...is Loading</p>}
-			{data && (
-				<>
-					<MainVisual>
-						<img src={makeImagePath(data.results[0].poster_path)} alt={data.results[0].title} />
-						<div> {data.results[0].title}</div>
-					</MainVisual>
-					<MovieList {...data} />
-				</>
-			)}
-		</Container>
+		<>
+			{isLoading && <Loader text="Calling popular movies right now" />}
+			{data && <ScreenLayout movies={data} />}
+		</>
 	);
 }
 

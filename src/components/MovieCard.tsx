@@ -107,7 +107,7 @@ const Tagline = styled.p`
 `;
 
 const Infos = styled(motion.div)`
-	margin-top: 15px;
+	margin-top: 10px;
 `;
 
 const RowInfos = styled(Infos)`
@@ -118,7 +118,7 @@ const RowInfos = styled(Infos)`
 	gap: 10px;
 `;
 
-const Genres = styled.ul`
+const InfoList = styled.ul`
 	display: flex;
 	flex-direction: row;
 	justify-content: flex-start;
@@ -129,6 +129,7 @@ const Genres = styled.ul`
 
 const InfoTitle = styled.span`
 	display: block;
+	text-transform: uppercase;
 	font-weight: 500;
 	opacity: 0.75;
 	margin-bottom: 10px;
@@ -213,12 +214,20 @@ function MovieCard({ clickedMovie, closeModal }: IProps) {
 								<p>{data.vote_average.toFixed(2)}</p>
 							</RowInfos>
 							<Infos>
+								<InfoTitle>Language</InfoTitle>
+								<InfoList>
+									{data.spoken_languages?.map((lang, i) => (
+										<li key={lang.iso_639_1}>{lang.name}</li>
+									))}
+								</InfoList>
+							</Infos>
+							<Infos>
 								<InfoTitle>Genres</InfoTitle>
-								<Genres>
+								<InfoList>
 									{data.genres?.map(genre => (
 										<li key={genre.id}>{genre.name}</li>
 									))}
-								</Genres>
+								</InfoList>
 							</Infos>
 							<Infos>
 								<InfoTitle>Overview</InfoTitle>
