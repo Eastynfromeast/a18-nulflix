@@ -1,8 +1,8 @@
 import { Link, useMatch } from "react-router-dom";
 import { motion, useScroll, useTransform } from "framer-motion";
 import styled from "styled-components";
-import { useSetRecoilState } from "recoil";
-import { isDarkAtom } from "../utils/atom";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { isCardOpen, isDarkAtom } from "../utils/atom";
 import { useState } from "react";
 
 const Nav = styled(motion.nav)`
@@ -93,10 +93,11 @@ function Header() {
 		setDarkAtom(prev => !prev);
 		setIsDarkOn(prev => !prev);
 	};
+	const isCardOpenValue = useRecoilValue(isCardOpen);
 
 	return (
 		<>
-			<Nav style={{ backgroundColor: isDarkOn ? headerBgDark : headerBgLight }}>
+			<Nav style={{ backgroundColor: isDarkOn ? headerBgDark : headerBgLight, opacity: isCardOpenValue ? 0 : 1 }}>
 				<SwitchWrapper>
 					<SwitchTitle>
 						Theme
