@@ -1,20 +1,17 @@
 import { Link, useMatch } from "react-router-dom";
 import { motion, useScroll, useTransform } from "framer-motion";
 import styled from "styled-components";
-import { useRecoilState, useSetRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 import { isDarkAtom } from "../utils/atom";
+import { useState } from "react";
 
 const Nav = styled(motion.nav)`
 	width: 100%;
-	padding: 20px 10px;
+	padding: 10px 10px 25px;
 	position: fixed;
 	top: 0;
 	z-index: 99;
-`;
-
-const ThemeButton = styled.button`
-	display: block;
-	margin: 0 auto 10px;
+	font-size: 16px;
 `;
 
 const NavItems = styled.ul`
@@ -27,6 +24,7 @@ const NavItems = styled.ul`
 const NavItem = styled.li`
 	position: relative;
 	text-transform: uppercase;
+	color: ${props => props.theme.textColor};
 `;
 
 const HeaderDot = styled(motion.span)`
@@ -42,20 +40,74 @@ const HeaderDot = styled(motion.span)`
 	margin: 0 auto;
 `;
 
+const SwitchWrapper = styled.div`
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	padding-bottom: 10px;
+	gap: 20px;
+`;
+
+const SwitchTitle = styled.h3`
+	span {
+		display: inline-block;
+		margin-left: 10px;
+		font-weight: 600;
+		text-transform: uppercase;
+	}
+`;
+
+const Switch = styled.div`
+	width: 60px;
+	height: 34px;
+	background-color: ${props => props.theme.cardBgColor};
+	display: flex;
+	align-items: center;
+	border-radius: 50px;
+	padding: 2px 5px;
+	cursor: pointer;
+	border: 1px solid ${props => props.theme.textColor};
+`;
+
+const Handle = styled(motion.span)`
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 25px;
+	height: 25px;
+	background-color: ${props => props.theme.textColor};
+	border-radius: 100%;
+`;
+
 function Header() {
 	const homeMatch = useMatch("/");
 	const comingSoonMatch = useMatch("/coming-soon");
 	const nowPlayingMatch = useMatch("/now-playing");
 	const { scrollY } = useScroll();
-	const headerBg = useTransform(scrollY, [0, 60], ["rgba(34, 31, 31,0)", "rgba(34, 31, 31,1)"]);
-
+	const headerBgDark = useTransform(scrollY, [0, 70], ["rgba(34, 31, 31,0)", "rgba(34, 31, 31,1)"]);
+	const headerBgLight = useTransform(scrollY, [0, 70], ["rgba(245, 245, 241,0)", "rgba(245, 245, 241,1)"]);
 	const setDarkAtom = useSetRecoilState(isDarkAtom);
-	const toggleDarkAtom = () => setDarkAtom(prev => !prev);
+	const [isDarkOn, setIsDarkOn] = useState(true);
+	const toggleDarkAtom = () => {
+		setDarkAtom(prev => !prev);
+		setIsDarkOn(prev => !prev);
+	};
 
 	return (
 		<>
-			<Nav style={{ backgroundColor: headerBg }}>
-				<ThemeButton onClick={toggleDarkAtom}>Change theme</ThemeButton>
+			<Nav style={{ backgroundColor: isDarkOn ? headerBgDark : headerBgLight }}>
+				<SwitchWrapper>
+					<SwitchTitle>
+						Theme
+						<span>{isDarkOn ? "Dark" : "Light"}</span>
+					</SwitchTitle>
+					<Switch onClick={toggleDarkAtom} style={{ justifyContent: isDarkOn ? "flex-start" : "flex-end" }}>
+						<Handle layout transition={{ type: "tween" }}>
+							{isDarkOn ? "🌙" : "☀️"}
+						</Handle>
+					</Switch>
+				</SwitchWrapper>
 				<NavItems>
 					<NavItem>
 						<Link to="/">

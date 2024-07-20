@@ -90,8 +90,8 @@ const ContextCard = styled(Card)`
 	padding: 0 20px 50px;
 	font-size: 16px;
 	word-break: keep-all;
-	background-color: rgba(0, 0, 0, 0.75);
-	color: #fff;
+	background-color: ${props => props.theme.cardBgColor};
+	color: ${props => props.theme.textColor};
 	h2 {
 		font-weight: 600;
 		font-size: 2.5em;
