@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { useQuery } from "@tanstack/react-query";
 import { getMovie, makeBgPath, makeImagePath } from "../utils/api";
 import { IMovie } from "../utils/types";
@@ -63,6 +63,10 @@ const ContextCard = styled(Card)`
 	}
 `;
 
+const Infos = styled.div`
+	margin-top: 15px;
+`;
+
 const Genres = styled.ul`
 	display: flex;
 	flex-direction: row;
@@ -77,12 +81,18 @@ const SmallTitle = styled.span`
 	width: 100%;
 	font-weight: 500;
 	opacity: 0.75;
-	margin-top: 15px;
+	margin-bottom: 10px;
 `;
 
 const Overview = styled.p`
 	line-height: 1.35;
 `;
+
+const contextVariants = {
+	initial: { x: -150, opacity: 0 },
+	visible: { x: 0, opacity: 1, transition: { delay: 0.5, duration: 1, type: "spring" } },
+	exit: { x: -150, opacity: 0 },
+};
 
 interface IProps {
 	clickedMovie: number;
@@ -105,17 +115,23 @@ function MovieCard({ clickedMovie, onOverlayClick }: IProps) {
 			{movieData && (
 				<>
 					<PosterCard layoutId={clickedMovie + ""} $bgPhoto={makeImagePath(movieData?.poster_path)}></PosterCard>
-					<ContextCard>
-						<h2>{movieData?.title}</h2>
-						<SmallTitle>Genres</SmallTitle>
-						<Genres>
-							{movieData.genres?.map(genre => (
-								<li key={genre.id}>{genre.name}</li>
-							))}
-						</Genres>
-						<SmallTitle>Overview</SmallTitle>
-						<Overview>{movieData.overview === "" ? "There is no overview written " : movieData.overview}</Overview>
-					</ContextCard>
+					<AnimatePresence>
+						<ContextCard variants={contextVariants} initial="initial" animate="visible" exit="exit">
+							<h2>{movieData?.title}</h2>
+							<Infos>
+								<SmallTitle>Genres</SmallTitle>
+								<Genres>
+									{movieData.genres?.map(genre => (
+										<li key={genre.id}>{genre.name}</li>
+									))}
+								</Genres>
+							</Infos>
+							<Infos>
+								<SmallTitle>Overview</SmallTitle>
+								<Overview>{movieData.overview === "" ? "There is no overview written " : movieData.overview}</Overview>
+							</Infos>
+						</ContextCard>
+					</AnimatePresence>
 				</>
 			)}
 		</Overlay>

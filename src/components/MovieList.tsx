@@ -88,8 +88,8 @@ function MovieList(data: IDataResults) {
 
 	return (
 		<>
-			<AnimatePresence>
-				<MovieGrid variants={moviesVarianst} initial="initial" animate="animate">
+			<MovieGrid variants={moviesVarianst} initial="initial" animate="animate">
+				<AnimatePresence>
 					{data.results.slice(1).map((movie: IMovie, index) => (
 						<Movie
 							layoutId={movie.id + ""}
@@ -114,9 +114,9 @@ function MovieList(data: IDataResults) {
 							</MovieTitle>
 						</Movie>
 					))}
-				</MovieGrid>
-				{clickedMovie && <MovieCard onOverlayClick={closeModal} clickedMovie={clickedMovie} />}
-			</AnimatePresence>
+				</AnimatePresence>
+			</MovieGrid>
+			{clickedMovie && <MovieCard onOverlayClick={closeModal} clickedMovie={clickedMovie} />}
 		</>
 	);
 }
