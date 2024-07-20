@@ -116,7 +116,7 @@ function MovieList(data: IDataResults) {
 					))}
 				</AnimatePresence>
 			</MovieGrid>
-			{clickedMovie && <MovieCard onOverlayClick={closeModal} clickedMovie={clickedMovie} />}
+			{clickedMovie && <MovieCard closeModal={closeModal} clickedMovie={clickedMovie} />}
 		</>
 	);
 }
