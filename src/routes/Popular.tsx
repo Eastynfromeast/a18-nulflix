@@ -12,7 +12,7 @@ const MainVisual = styled(motion.div)`
 	text-align: center;
 `;
 
-function Home() {
+function Popular() {
 	const { data, isLoading } = useQuery<IDataResults>({
 		queryKey: ["popular", ""],
 		queryFn: () => getPopular(),
@@ -26,4 +26,4 @@ function Home() {
 	);
 }
 
-export default Home;
+export default Popular;

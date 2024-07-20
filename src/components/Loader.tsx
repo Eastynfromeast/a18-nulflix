@@ -1,6 +1,6 @@
 import { RotatingLines } from "react-loader-spinner";
 import styled from "styled-components";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 
 interface IText {
 	text: string;
@@ -8,6 +8,10 @@ interface IText {
 
 const LoaderContainer = styled(motion.div)`
 	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 	text-align: center;
 `;
 
@@ -19,10 +23,8 @@ const LoaderText = styled.p`
 function Loader({ text }: IText) {
 	return (
 		<LoaderContainer>
-			<AnimatePresence>
-				<RotatingLines strokeColor="#E50914" strokeWidth="5" animationDuration="0.75" width="96" visible={true} />
-				<LoaderText>{text}</LoaderText>
-			</AnimatePresence>
+			<RotatingLines strokeColor="#E50914" strokeWidth="5" animationDuration="0.75" width="96" visible={true} />
+			<LoaderText>{text}</LoaderText>
 		</LoaderContainer>
 	);
 }

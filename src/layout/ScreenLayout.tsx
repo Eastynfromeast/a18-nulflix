@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { IDataResults } from "../utils/types";
 import Loader from "../components/Loader";
-import MovieList from "../components/MovieList";
+import MovieList from "../components/movies/MovieList";
 
 const Container = styled.div`
 	position: relative;

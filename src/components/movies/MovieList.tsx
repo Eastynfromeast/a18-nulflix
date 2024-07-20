@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { AnimatePresence, motion } from "framer-motion";
-import { IDataResults, IMovie } from "../utils/types";
-import { makeImagePath } from "../utils/api";
+import { IDataResults, IMovie } from "../../utils/types";
+import { makeImagePath } from "../../utils/api";
 import MovieCard from "./MovieCard";
 import { useState } from "react";
 

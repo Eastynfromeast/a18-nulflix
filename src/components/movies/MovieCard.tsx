@@ -1,9 +1,10 @@
 import styled, { keyframes } from "styled-components";
 import { AnimatePresence, motion } from "framer-motion";
 import { useQuery } from "@tanstack/react-query";
-import { getMovie, makeBgPath, makeImagePath } from "../utils/api";
-import { IMovie, IMovieDetail } from "../utils/types";
+import { getMovie, makeBgPath, makeImagePath } from "../../utils/api";
+import { IMovie, IMovieDetail } from "../../utils/types";
 import { Link } from "react-router-dom";
+import Loader from "../Loader";
 
 const rumos = keyframes`
 	0%, 100%{
@@ -176,6 +177,21 @@ const convertTime = (time: number) => {
 	return `${hour}h ${min}m`;
 };
 
+const OVERVIEW_MAX = 200;
+
+const convertOverview = (overview: string) => {
+	let converted;
+	if (overview.length > OVERVIEW_MAX) {
+		converted = overview.slice(0, OVERVIEW_MAX);
+	} else if (overview === "") {
+		converted = "No overview is written";
+	} else {
+		converted = overview;
+	}
+
+	return converted;
+};
+
 function MovieCard({ clickedMovie, closeModal }: IProps) {
 	const { data, isLoading } = useQuery<IMovieDetail>({
 		queryKey: ["movie", "detail"],
@@ -187,6 +203,7 @@ function MovieCard({ clickedMovie, closeModal }: IProps) {
 
 	return (
 		<Overlay onClick={closeModal} style={{ background: overlayBg }}>
+			{isLoading && <Loader text="calling movie details" />}
 			{data && (
 				<>
 					<PosterCard layoutId={clickedMovie + ""} $bgPhoto={makeImagePath(data?.poster_path)}></PosterCard>
@@ -199,7 +216,7 @@ function MovieCard({ clickedMovie, closeModal }: IProps) {
 							</ExitBtn>
 							<h2>{data?.title}</h2>
 							<Infos>
-								<Tagline>{data.tagline}</Tagline>
+								<Tagline>&quot;{data.tagline}&quot;</Tagline>
 							</Infos>
 							<RowInfos>
 								<InfoTitle>Released</InfoTitle>
@@ -217,21 +234,21 @@ function MovieCard({ clickedMovie, closeModal }: IProps) {
 								<InfoTitle>Language</InfoTitle>
 								<InfoList>
 									{data.spoken_languages?.map((lang, i) => (
-										<li key={lang.iso_639_1}>{lang.name}</li>
+										<li key={lang.iso_639_1}>{lang.english_name}</li>
 									))}
 								</InfoList>
 							</Infos>
-							<Infos>
+							<RowInfos>
 								<InfoTitle>Genres</InfoTitle>
 								<InfoList>
 									{data.genres?.map(genre => (
 										<li key={genre.id}>{genre.name}</li>
 									))}
 								</InfoList>
-							</Infos>
+							</RowInfos>
 							<Infos>
 								<InfoTitle>Overview</InfoTitle>
-								<Overview>{data.overview === "" ? "There is no overview written " : data.overview}</Overview>
+								<Overview>{convertOverview(data.overview)}</Overview>
 							</Infos>
 							<LinkButton href={data.homepage} target="_blank">
 								More about this movie
