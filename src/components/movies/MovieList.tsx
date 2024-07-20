@@ -35,6 +35,7 @@ const MovieTitle = styled(motion.div)`
 	top: 0;
 	left: 0;
 	background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75));
+	color: #fff;
 	font-size: 16px;
 	h3 {
 		font-weight: 600;
@@ -71,8 +72,8 @@ const moviesVarianst = {
 };
 
 const movieVariants = {
-	initial: { opacity: 0, scaleY: 0 },
-	animate: { opacity: 1, scaleY: 1, transition: { duration: 0.3 } },
+	initial: { opacity: 0, scaleX: 0 },
+	animate: { opacity: 1, scaleX: 1, originX: 0, transition: { duration: 0.3 } },
 };
 
 const titleVariants = {

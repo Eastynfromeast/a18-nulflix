@@ -39,7 +39,7 @@ const ExitBtn = styled(motion.button)`
 	right: 20px;
 	padding: 5px;
 	background-color: rgba(0, 0, 0, 0.75);
-	color: ${props => props.theme.textColor};
+	color: #fff;
 	border-radius: 100%;
 	width: 35px;
 	height: 35px;
@@ -91,6 +91,7 @@ const ContextCard = styled(Card)`
 	font-size: 16px;
 	word-break: keep-all;
 	background-color: rgba(0, 0, 0, 0.75);
+	color: #fff;
 	h2 {
 		font-weight: 600;
 		font-size: 2.5em;
@@ -216,7 +217,7 @@ function MovieCard({ clickedMovie, closeModal }: IProps) {
 							</ExitBtn>
 							<h2>{data?.title}</h2>
 							<Infos>
-								<Tagline>&quot;{data.tagline}&quot;</Tagline>
+								<Tagline>{data.tagline !== "" ? data.tagline : null}</Tagline>
 							</Infos>
 							<RowInfos>
 								<InfoTitle>Released</InfoTitle>
@@ -230,14 +231,14 @@ function MovieCard({ clickedMovie, closeModal }: IProps) {
 								<InfoTitle>Rating</InfoTitle>
 								<p>{data.vote_average.toFixed(2)}</p>
 							</RowInfos>
-							<Infos>
+							<RowInfos>
 								<InfoTitle>Language</InfoTitle>
 								<InfoList>
 									{data.spoken_languages?.map((lang, i) => (
 										<li key={lang.iso_639_1}>{lang.english_name}</li>
 									))}
 								</InfoList>
-							</Infos>
+							</RowInfos>
 							<RowInfos>
 								<InfoTitle>Genres</InfoTitle>
 								<InfoList>

@@ -6,6 +6,7 @@ import MovieList from "../components/movies/MovieList";
 const Container = styled.div`
 	position: relative;
 	padding: 15px;
+	padding-top: 100px;
 `;
 
 interface IScreenProps {

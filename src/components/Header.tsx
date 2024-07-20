@@ -1,10 +1,20 @@
-import { motion } from "framer-motion";
 import { Link, useMatch } from "react-router-dom";
+import { motion, useScroll, useTransform } from "framer-motion";
 import styled from "styled-components";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import { isDarkAtom } from "../utils/atom";
 
-const Nav = styled.nav`
+const Nav = styled(motion.nav)`
 	width: 100%;
 	padding: 20px 10px;
+	position: fixed;
+	top: 0;
+	z-index: 99;
+`;
+
+const ThemeButton = styled.button`
+	display: block;
+	margin: 0 auto 10px;
 `;
 
 const NavItems = styled.ul`
@@ -36,9 +46,16 @@ function Header() {
 	const homeMatch = useMatch("/");
 	const comingSoonMatch = useMatch("/coming-soon");
 	const nowPlayingMatch = useMatch("/now-playing");
+	const { scrollY } = useScroll();
+	const headerBg = useTransform(scrollY, [0, 60], ["rgba(34, 31, 31,0)", "rgba(34, 31, 31,1)"]);
+
+	const setDarkAtom = useSetRecoilState(isDarkAtom);
+	const toggleDarkAtom = () => setDarkAtom(prev => !prev);
+
 	return (
 		<>
-			<Nav>
+			<Nav style={{ backgroundColor: headerBg }}>
+				<ThemeButton onClick={toggleDarkAtom}>Change theme</ThemeButton>
 				<NavItems>
 					<NavItem>
 						<Link to="/">
