@@ -1,11 +1,12 @@
 import { useState } from "react";
-import { Link, useMatch } from "react-router-dom";
-import { AnimatePresence, motion, useScroll, useTransform } from "framer-motion";
+import { Link, useMatch, useNavigate } from "react-router-dom";
+import { AnimatePresence, motion, useAnimation, useScroll, useTransform } from "framer-motion";
 import styled from "styled-components";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { isCardOpen, isDarkAtom } from "../utils/atom";
 import DarkLogoImage from "../assets/img/logo_dark_nulflix.png";
 import LightLogoImage from "../assets/img/logo_light_nulflix_0.png";
+import { useForm } from "react-hook-form";
 
 const Nav = styled(motion.nav)`
 	width: 100%;
@@ -27,6 +28,9 @@ const UtilItems = styled.div`
 	align-items: center;
 	position: relative;
 	margin-bottom: 10px;
+	@media only screen and (max-width: 480px) {
+		flex-direction: column;
+	}
 `;
 
 const LogoWrapper = styled(motion.div)`
@@ -40,35 +44,9 @@ const LogoImg = styled(motion.img)`
 	transform-origin: left;
 `;
 
-const NavItems = styled.ul`
-	display: flex;
-	align-items: center;
-	justify-content: space-evenly;
-	width: 100%;
-`;
-
-const NavItem = styled.li`
-	position: relative;
-	text-transform: uppercase;
-	color: ${props => props.theme.textColor};
-`;
-
-const HeaderDot = styled(motion.span)`
-	display: block;
-	width: 5px;
-	height: 5px;
-	border-radius: 100%;
-	background-color: ${props => props.theme.accentColor};
-	position: absolute;
-	bottom: -10px;
-	left: 0;
-	right: 0;
-	margin: 0 auto;
-`;
-
 const SwitchWrapper = styled.div`
 	position: absolute;
-	right: 20px;
+	left: 20px;
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
@@ -123,6 +101,67 @@ const Handle = styled(motion.span)`
 	}
 `;
 
+const SearchWrapper = styled.form`
+	position: relative;
+	color: ${props => props.theme.accentColor};
+	display: flex;
+	align-items: center;
+	svg {
+		height: 30px;
+		position: relative;
+		z-index: 9;
+	}
+	@media only screen and (max-width: 480px) {
+		justify-content: center;
+	}
+`;
+
+const SearchInput = styled(motion.input)`
+	transform-origin: right center;
+	position: absolute;
+	right: 0px;
+	padding: 5px 10px;
+	padding-inline: 0;
+	padding-left: 30px;
+	color: ${props => props.theme.textColor};
+	font-size: 16px;
+	background-color: transparent;
+	border: none;
+	border-bottom: 1px solid ${props => props.theme.accentColor};
+	&:active {
+		border: 1px solid ${props => props.theme.accentColor};
+	}
+	@media only screen and (max-width: 480px) {
+		position: relative;
+	}
+`;
+
+const NavItems = styled.ul`
+	display: flex;
+	align-items: center;
+	justify-content: space-evenly;
+	width: 100%;
+`;
+
+const NavItem = styled.li`
+	position: relative;
+	text-transform: uppercase;
+	color: ${props => props.theme.textColor};
+`;
+
+const HeaderDot = styled(motion.span)`
+	display: block;
+	width: 5px;
+	height: 5px;
+	border-radius: 100%;
+	background-color: ${props => props.theme.accentColor};
+	position: absolute;
+	bottom: -10px;
+	left: 0;
+	right: 0;
+	margin: 0 auto;
+`;
+
 const logoVariants = {
 	hidden: { scaleX: 0, opacity: 0 },
 	visible: {
@@ -136,6 +175,10 @@ const logoVariants = {
 	},
 	exit: { scaleX: 0, opacity: 0 },
 };
+
+interface ISearchForm {
+	keyword: string;
+}
 
 function Header() {
 	const homeMatch = useMatch("/");
@@ -151,7 +194,22 @@ function Header() {
 		setIsDarkOn(prev => !prev);
 	};
 	const isCardOpenValue = useRecoilValue(isCardOpen);
+	const [isSearchOpen, setIsSearchOpen] = useState(false);
+	const inputAnimation = useAnimation();
+	const toggleSearch = () => {
+		if (isSearchOpen) {
+			inputAnimation.start({ scaleX: 0 });
+		} else {
+			inputAnimation.start({ scaleX: 1 });
+		}
+		setIsSearchOpen(prev => !prev);
+	};
 
+	const { register, handleSubmit } = useForm<ISearchForm>();
+	const navigate = useNavigate();
+	const onValid = (data: ISearchForm) => {
+		navigate(`/search?keyword=${data.keyword}`);
+	};
 	return (
 		<>
 			<Nav style={{ backgroundColor: isDarkOn ? headerBgDark : headerBgLight, opacity: isCardOpenValue ? 0 : 1 }}>
@@ -182,16 +240,39 @@ function Header() {
 						</AnimatePresence>
 					</LogoWrapper>
 					<SwitchWrapper>
-						<SwitchTitle>
-							Theme
-							<span>{isDarkOn ? "Dark" : "Light"}</span>
-						</SwitchTitle>
 						<Switch onClick={toggleDarkAtom} style={{ justifyContent: isDarkOn ? "flex-start" : "flex-end" }}>
 							<Handle layout transition={{ type: "tween" }}>
 								{isDarkOn ? "🌙" : "☀️"}
 							</Handle>
 						</Switch>
+						<SwitchTitle>
+							Theme
+							<span>{isDarkOn ? "Dark" : "Light"}</span>
+						</SwitchTitle>
 					</SwitchWrapper>
+					<SearchWrapper onSubmit={handleSubmit(onValid)}>
+						<motion.svg
+							onClick={toggleSearch}
+							animate={{ x: isSearchOpen ? -170 : 0 }}
+							transition={{ type: "tween", delay: 0.25 }}
+							fill="currentColor"
+							viewBox="0 0 20 20"
+							xmlns="http://www.w3.org/2000/svg"
+						>
+							<path
+								fillRule="evenodd"
+								d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+								clipRule="evenodd"
+							></path>
+						</motion.svg>
+						<SearchInput
+							initial={{ scaleX: 0 }}
+							animate={inputAnimation}
+							transition={{ type: "tween" }}
+							{...register("keyword", { required: "Please write down more than 2 Roman alphabets", minLength: 2 })}
+							placeholder="Search a movie..."
+						/>
+					</SearchWrapper>
 				</UtilItems>
 				<NavItems>
 					<NavItem>

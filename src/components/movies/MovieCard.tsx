@@ -45,6 +45,7 @@ const MovieTitle = styled(motion.div)`
 const Star = styled.svg`
 	max-width: 1.25em;
 	margin-right: 5px;
+	fill: ${props => props.theme.accentColor};
 `;
 
 const movieVariants = {
@@ -73,7 +74,7 @@ function MovieCard({ movie, onClickMovie }: IMovieCardProps) {
 			<Thumbnail src={makeImagePath(movie.poster_path)} alt={movie.title} />
 			<MovieTitle variants={titleVariants} whileHover="hover">
 				<p>
-					<Star fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+					<Star viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
 						<path
 							clipRule="evenodd"
 							fillRule="evenodd"

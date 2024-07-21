@@ -6,12 +6,6 @@ import { motion } from "framer-motion";
 import ScreenLayout from "../layout/ScreenLayout";
 import Loader from "../components/Loader";
 
-const MainVisual = styled(motion.div)`
-	width: 100%;
-	margin: 0 auto 30px;
-	text-align: center;
-`;
-
 function Popular() {
 	const { data, isLoading } = useQuery<IDataResults>({
 		queryKey: ["popular", ""],

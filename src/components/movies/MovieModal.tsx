@@ -183,7 +183,7 @@ const OVERVIEW_MAX = 200;
 const convertOverview = (overview: string) => {
 	let converted;
 	if (overview.length > OVERVIEW_MAX) {
-		converted = overview.slice(0, OVERVIEW_MAX);
+		converted = overview.slice(0, OVERVIEW_MAX) + "...";
 	} else if (overview === "") {
 		converted = "No overview is written";
 	} else {
@@ -200,7 +200,7 @@ function MovieModal({ clickedMovie, closeModal }: IProps) {
 		enabled: clickedMovie !== null,
 	});
 
-	const overlayBg = data?.backdrop_path ? `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${makeBgPath(data?.backdrop_path)})` : "rgba(0,0,0,.5)";
+	const overlayBg = data?.backdrop_path ? `linear-gradient(rgba(0, 0, 0, .5), rgba(0, 0, 0, 0.5)), url(${makeBgPath(data?.backdrop_path)})` : "rgba(0,0,0,.5)";
 
 	return (
 		<Overlay onClick={closeModal} style={{ background: overlayBg }}>

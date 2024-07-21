@@ -4,6 +4,7 @@ import NowPlaying from "./routes/NowPlaying";
 import ComingSoon from "./routes/ComingSoon";
 import Popular from "./routes/Popular";
 import Error from "./routes/Error";
+import Search from "./routes/Search";
 
 const router = createBrowserRouter([
 	{
@@ -22,6 +23,10 @@ const router = createBrowserRouter([
 			{
 				path: "coming-soon",
 				element: <ComingSoon />,
+			},
+			{
+				path: "search",
+				element: <Search />,
 			},
 		],
 	},
