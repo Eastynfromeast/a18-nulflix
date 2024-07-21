@@ -205,10 +205,11 @@ function Header() {
 		setIsSearchOpen(prev => !prev);
 	};
 
-	const { register, handleSubmit } = useForm<ISearchForm>();
+	const { register, handleSubmit, reset } = useForm<ISearchForm>();
 	const navigate = useNavigate();
 	const onValid = (data: ISearchForm) => {
 		navigate(`/search?keyword=${data.keyword}`);
+		reset();
 	};
 	return (
 		<>

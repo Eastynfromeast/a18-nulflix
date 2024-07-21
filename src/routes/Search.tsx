@@ -4,6 +4,7 @@ import { getSearchedMovie } from "../utils/api";
 import Loader from "../components/Loader";
 import ScreenLayout from "../layout/ScreenLayout";
 import { IDataResults } from "../utils/types";
+import styled from "styled-components";
 
 function Search() {
 	const location = useLocation();
@@ -15,12 +16,11 @@ function Search() {
 		enabled: keyword !== null,
 	});
 
-	console.log(data);
-
 	return (
 		<>
 			{isLoading && <Loader text="Searching the movie..." />}
-			{data && <ScreenLayout movies={data} />}
+
+			{data && <ScreenLayout movies={data} searchTitle={keyword} />}
 		</>
 	);
 }
