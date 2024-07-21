@@ -4,6 +4,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import styled from "styled-components";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { isCardOpen, isDarkAtom } from "../utils/atom";
+import DarkLogoImage from "../assets/img/logo_dark_nulflix.png";
 
 const Nav = styled(motion.nav)`
 	width: 100%;
@@ -104,7 +105,7 @@ function Header() {
 	return (
 		<>
 			<Nav style={{ backgroundColor: isDarkOn ? headerBgDark : headerBgLight, opacity: isCardOpenValue ? 0 : 1 }}>
-				<LogoImg>{isDarkOn && <img src="" alt="nulflix dark logo img" />}</LogoImg>
+				<LogoImg>{isDarkOn && <img src={DarkLogoImage} alt="nulflix dark logo img" />}</LogoImg>
 				<SwitchWrapper>
 					<SwitchTitle>
 						Theme
