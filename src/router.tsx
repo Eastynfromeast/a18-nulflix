@@ -3,11 +3,13 @@ import App from "./App";
 import NowPlaying from "./routes/NowPlaying";
 import ComingSoon from "./routes/ComingSoon";
 import Popular from "./routes/Popular";
+import Error from "./routes/Error";
 
 const router = createBrowserRouter([
 	{
 		path: "/",
 		element: <App />,
+		errorElement: <Error />,
 		children: [
 			{
 				path: "",

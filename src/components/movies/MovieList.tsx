@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { AnimatePresence, motion } from "framer-motion";
 import { IDataResults, IMovie } from "../../utils/types";
 import { makeImagePath } from "../../utils/api";
-import MovieCard from "./MovieCard";
+import MovieModal from "./MovieModal";
 import { useState } from "react";
 import { useSetRecoilState } from "recoil";
 import { isCardOpen } from "../../utils/atom";
@@ -124,7 +124,7 @@ function MovieList(data: IDataResults) {
 					))}
 				</AnimatePresence>
 			</MovieGrid>
-			{clickedMovie && <MovieCard closeModal={closeModal} clickedMovie={clickedMovie} />}
+			{clickedMovie && <MovieModal closeModal={closeModal} clickedMovie={clickedMovie} />}
 		</>
 	);
 }

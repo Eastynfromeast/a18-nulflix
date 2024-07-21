@@ -2,8 +2,7 @@ import styled, { keyframes } from "styled-components";
 import { AnimatePresence, motion } from "framer-motion";
 import { useQuery } from "@tanstack/react-query";
 import { getMovie, makeBgPath, makeImagePath } from "../../utils/api";
-import { IMovie, IMovieDetail } from "../../utils/types";
-import { Link } from "react-router-dom";
+import { IMovieDetail } from "../../utils/types";
 import Loader from "../Loader";
 
 const rumos = keyframes`
@@ -194,7 +193,7 @@ const convertOverview = (overview: string) => {
 	return converted;
 };
 
-function MovieCard({ clickedMovie, closeModal }: IProps) {
+function MovieModal({ clickedMovie, closeModal }: IProps) {
 	const { data, isLoading } = useQuery<IMovieDetail>({
 		queryKey: ["movie", "detail"],
 		queryFn: () => getMovie(clickedMovie!),
@@ -263,4 +262,4 @@ function MovieCard({ clickedMovie, closeModal }: IProps) {
 	);
 }
 
-export default MovieCard;
+export default MovieModal;
