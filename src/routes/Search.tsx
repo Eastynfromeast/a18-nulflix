@@ -15,6 +15,8 @@ function Search() {
 		enabled: keyword !== null,
 	});
 
+	console.log(data);
+
 	return (
 		<>
 			{isLoading && <Loader text="Searching the movie..." />}

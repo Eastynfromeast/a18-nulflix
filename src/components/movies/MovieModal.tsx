@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getMovie, makeBgPath, makeImagePath } from "../../utils/api";
 import { IMovieDetail } from "../../utils/types";
 import Loader from "../Loader";
+import defaultImg from "../../assets/img/default_card_nulflix.jpg";
 
 const rumos = keyframes`
 	0%, 100%{
@@ -207,7 +208,7 @@ function MovieModal({ clickedMovie, closeModal }: IProps) {
 			{isLoading && <Loader text="calling movie details" />}
 			{data && (
 				<>
-					<PosterCard layoutId={clickedMovie + ""} $bgPhoto={makeImagePath(data?.poster_path)}></PosterCard>
+					<PosterCard layoutId={clickedMovie + ""} $bgPhoto={data.poster_path ? makeImagePath(data?.poster_path) : defaultImg}></PosterCard>
 					<AnimatePresence>
 						<ContextCard variants={contextVariants} initial="initial" animate="visible" exit="exit">
 							<ExitBtn onClick={closeModal} variants={buttonVariants} initial="initial" animate="animate">

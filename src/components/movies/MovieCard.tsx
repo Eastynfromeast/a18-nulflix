@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { motion } from "framer-motion";
 import { IMovie } from "../../utils/types";
 import { makeImagePath } from "../../utils/api";
+import defaultImg from "../../assets/img/default_card_nulflix.jpg";
 
 const Movie = styled(motion.li)`
 	overflow: hidden;
@@ -71,7 +72,7 @@ function MovieCard({ movie, onClickMovie }: IMovieCardProps) {
 			key={movie.id}
 			onClick={() => onClickMovie(movie.id)}
 		>
-			<Thumbnail src={makeImagePath(movie.poster_path)} alt={movie.title} />
+			<Thumbnail src={movie.poster_path ? makeImagePath(movie.poster_path) : defaultImg} alt={movie.title} />
 			<MovieTitle variants={titleVariants} whileHover="hover">
 				<p>
 					<Star viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
