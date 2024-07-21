@@ -1,11 +1,11 @@
 import { isRouteErrorResponse, useRouteError } from "react-router-dom";
 import styled from "styled-components";
-import GlobalStyle from "../style/GlobalStyle";
+import Header from "../components/Header";
 
 const Container = styled.div`
 	width: 100%;
 	height: 100vh;
-	padding: 60px 30px;
+	padding: 160px 30px 60px;
 	margin: 0 auto;
 	background-color: ${props => props.theme.bgColor};
 	color: ${props => props.theme.textColor};
@@ -23,10 +23,11 @@ const ErrorText = styled.p`
 
 function Error() {
 	const error = useRouteError();
+	console.log(error);
 	return (
 		<>
-			<GlobalStyle />
 			<Container>
+				<Header />
 				{isRouteErrorResponse(error) ? (
 					<div>
 						<ErrorTitle>

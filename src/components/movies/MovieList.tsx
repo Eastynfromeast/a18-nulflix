@@ -98,7 +98,7 @@ function MovieList(data: IDataResults) {
 		<>
 			<MovieGrid variants={moviesVarianst} initial="initial" animate="animate">
 				<AnimatePresence>
-					{data.results.slice(1).map((movie: IMovie, index) => (
+					{data.results.map((movie: IMovie, index) => (
 						<Movie
 							layoutId={movie.id + ""}
 							variants={movieVariants}
