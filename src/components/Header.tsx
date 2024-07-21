@@ -1,17 +1,23 @@
+import { useState } from "react";
 import { Link, useMatch } from "react-router-dom";
 import { motion, useScroll, useTransform } from "framer-motion";
 import styled from "styled-components";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { isCardOpen, isDarkAtom } from "../utils/atom";
-import { useState } from "react";
 
 const Nav = styled(motion.nav)`
 	width: 100%;
 	padding: 10px 10px 25px;
 	position: fixed;
 	top: 0;
-	z-index: 99;
+	z-index: 9;
 	font-size: 16px;
+`;
+
+const LogoImg = styled(motion.div)`
+	img {
+		width: 100%;
+	}
 `;
 
 const NavItems = styled.ul`
@@ -98,6 +104,7 @@ function Header() {
 	return (
 		<>
 			<Nav style={{ backgroundColor: isDarkOn ? headerBgDark : headerBgLight, opacity: isCardOpenValue ? 0 : 1 }}>
+				<LogoImg>{isDarkOn && <img src="" alt="nulflix dark logo img" />}</LogoImg>
 				<SwitchWrapper>
 					<SwitchTitle>
 						Theme

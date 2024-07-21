@@ -7,15 +7,14 @@ export function getPopular() {
 }
 
 export function getNowPlaying() {
-	return fetch(`${BASE_URL}/now-playing`).then(r => r.json());
+	return fetch(`${ORIGINAL_URL}/movie/now_playing?api_key=${API_KEY}`).then(r => r.json());
 }
 
 export function getComingSoon() {
-	return fetch(`${BASE_URL}/coming-soon`).then(r => r.json());
+	return fetch(`${ORIGINAL_URL}/movie/upcoming?api_key=${API_KEY}`).then(r => r.json());
 }
 
 export function getMovie(id: number) {
-	// return fetch(`${BASE_URL}/movie?id=${id}`).then(r => r.json());
 	return fetch(`${ORIGINAL_URL}/movie/${id}?api_key=${API_KEY}`).then(r => r.json());
 }
 

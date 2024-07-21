@@ -26,6 +26,7 @@ const Overlay = styled(motion.div)`
 	top: 0;
 	left: 0;
 	background-size: cover;
+	z-index: 10;
 	@media only screen and (max-width: 480px) {
 		flex-direction: column;
 		padding: 0 20px;

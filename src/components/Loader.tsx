@@ -1,6 +1,8 @@
 import { RotatingLines } from "react-loader-spinner";
 import styled from "styled-components";
 import { motion } from "framer-motion";
+import { useRecoilValue } from "recoil";
+import { isDarkAtom } from "../utils/atom";
 
 interface IText {
 	text: string;
@@ -13,6 +15,7 @@ const LoaderContainer = styled(motion.div)`
 	flex-direction: column;
 	align-items: center;
 	text-align: center;
+	padding-top: 45%;
 `;
 
 const LoaderText = styled.p`
