@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getMovie, makeBgPath, makeImagePath } from "../../utils/api";
 import { IMovieDetail } from "../../utils/types";
 import Loader from "../Loader";
-import defaultImg from "../../assets/img/default_card_nulflix.jpg";
+import defaultImg from "../../assets/img/default_card_nulflix_0.jpg";
 
 const rumos = keyframes`
 	0%, 100%{

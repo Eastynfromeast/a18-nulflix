@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { motion } from "framer-motion";
 import { IMovie } from "../../utils/types";
 import { makeImagePath } from "../../utils/api";
-import defaultImg from "../../assets/img/default_card_nulflix.jpg";
+import defaultImg from "../../assets/img/default_card_nulflix_0.jpg";
 
 const Movie = styled(motion.li)`
 	overflow: hidden;

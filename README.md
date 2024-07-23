@@ -31,7 +31,7 @@
   ![logo_light_nulflix_0](https://github.com/user-attachments/assets/75c283af-bef7-4eb9-bf39-5814111364e0)
 
 - Default Image : 검색 시, 이미지가 없는 영화 컴포넌트의 이미지에 사용
-  ![default_card_nulflix](https://github.com/user-attachments/assets/039df277-0f17-41f9-aef0-535e4df39eaa)
+  ![default_card_nulflix_0](https://github.com/user-attachments/assets/c54d2af6-879f-45ae-ab3e-2a96d5391265)
 
 ### 스크린샷
 
