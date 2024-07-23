@@ -1,14 +1,15 @@
 import { isRouteErrorResponse, useRouteError } from "react-router-dom";
 import styled from "styled-components";
 import Header from "../components/Header";
+import "../style/reset.css";
+import { useRecoilValue } from "recoil";
+import { isDarkAtom } from "../utils/atom";
 
 const Container = styled.div`
 	width: 100%;
 	height: 100vh;
 	padding: 160px 30px 60px;
 	margin: 0 auto;
-	background-color: #221f1f;
-	color: #f5f5f1;
 	font-size: 24px;
 	line-height: 1.5;
 `;
@@ -23,10 +24,16 @@ const ErrorText = styled.p`
 
 function Error() {
 	const error = useRouteError();
-	console.log(error);
+	const isDark = useRecoilValue(isDarkAtom);
+	console.log(isDark);
 	return (
 		<>
-			<Container>
+			<Container
+				style={{
+					backgroundColor: isDark ? "#221f1f" : "#f5f5f1",
+					color: isDark ? "#f5f5f1" : "#221f1f",
+				}}
+			>
 				<Header />
 				{isRouteErrorResponse(error) ? (
 					<div>
