@@ -1,9 +1,9 @@
 import { isRouteErrorResponse, useRouteError } from "react-router-dom";
-import styled from "styled-components";
-import Header from "../components/Header";
-import "../style/reset.css";
 import { useRecoilValue } from "recoil";
 import { isDarkAtom } from "../utils/atom";
+import Header from "../components/Header";
+import styled from "styled-components";
+import "../style/reset.css";
 
 const Container = styled.div`
 	width: 100%;
@@ -25,7 +25,7 @@ const ErrorText = styled.p`
 function Error() {
 	const error = useRouteError();
 	const isDark = useRecoilValue(isDarkAtom);
-	console.log(isDark);
+
 	return (
 		<>
 			<Container
