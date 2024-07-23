@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useMatch, useNavigate } from "react-router-dom";
 import { AnimatePresence, motion, useAnimation, useScroll, useTransform } from "framer-motion";
 import styled from "styled-components";
@@ -205,12 +205,13 @@ function Header() {
 		setIsSearchOpen(prev => !prev);
 	};
 
-	const { register, handleSubmit, reset } = useForm<ISearchForm>();
+	const { register, handleSubmit, reset, resetField } = useForm<ISearchForm>();
 	const navigate = useNavigate();
 	const onValid = (data: ISearchForm) => {
 		navigate(`/search?keyword=${data.keyword}`);
-		reset();
+		resetField("keyword");
 	};
+
 	return (
 		<>
 			<Nav style={{ backgroundColor: isDarkOn ? headerBgDark : headerBgLight, opacity: isCardOpenValue ? 0 : 1 }}>

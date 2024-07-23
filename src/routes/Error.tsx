@@ -7,8 +7,8 @@ const Container = styled.div`
 	height: 100vh;
 	padding: 160px 30px 60px;
 	margin: 0 auto;
-	background-color: ${props => props.theme.bgColor};
-	color: ${props => props.theme.textColor};
+	background-color: #221f1f;
+	color: #f5f5f1;
 	font-size: 24px;
 	line-height: 1.5;
 `;
