@@ -4,7 +4,7 @@ import { AnimatePresence, motion, useAnimation, useScroll, useTransform } from "
 import styled from "styled-components";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { isCardOpen, isDarkAtom } from "../utils/atom";
-import DarkLogoImage from "../assets/img/logo_dark_nulflix.png";
+import DarkLogoImage from "../assets/img/logo_dark_nulflix_0.png";
 import LightLogoImage from "../assets/img/logo_light_nulflix_0.png";
 import { useForm } from "react-hook-form";
 
