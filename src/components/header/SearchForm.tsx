@@ -90,7 +90,7 @@ function SearchForm() {
 		<SearchWrapper onSubmit={handleSubmit(onValid)}>
 			<motion.svg
 				onClick={toggleSearch}
-				animate={{ x: isSearchOpen ? (windowW > 480 ? "-260%" : "0%") : windowW > 480 ? "350%" : "500%" }}
+				animate={{ x: isSearchOpen ? (windowW > 480 ? "-260%" : "0%") : "350%" }}
 				transition={{ type: "tween" }}
 				fill="currentColor"
 				viewBox="0 0 20 20"

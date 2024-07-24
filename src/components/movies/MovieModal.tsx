@@ -28,7 +28,9 @@ const Overlay = styled(motion.div)`
 	z-index: 10;
 	@media only screen and (max-width: 480px) {
 		flex-direction: column;
-		padding: 0 20px;
+		align-items: flex-start;
+		justify-content: flex-start;
+		padding-top: 75px;
 	}
 `;
 
@@ -74,6 +76,7 @@ const Card = styled(motion.div)`
 	}
 	@media only screen and (max-width: 480px) {
 		width: 100%;
+		max-width: 100vw;
 	}
 `;
 
