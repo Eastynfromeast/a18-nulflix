@@ -1,6 +1,11 @@
 import { motion } from "framer-motion";
 import styled from "styled-components";
 
+const Container = styled.div`
+	width: 100%;
+	min-height: 80vh;
+`;
+
 const SearchTitle = styled.div`
 	width: 100%;
 	padding: 20px 10px 40px;
@@ -55,7 +60,7 @@ interface ISearchResult {
 
 function SearchResult({ keyword, resultLength }: ISearchResult) {
 	return (
-		<>
+		<Container>
 			<SearchTitle>
 				<h3>
 					The keyword is <span>&quot;{keyword}&quot;</span>
@@ -66,7 +71,7 @@ function SearchResult({ keyword, resultLength }: ISearchResult) {
 					<h3>Sorry, There's no movie found :(</h3>
 				</NoMovieNotice>
 			)}
-		</>
+		</Container>
 	);
 }
 
