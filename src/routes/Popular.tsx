@@ -1,8 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { getPopular } from "../utils/api";
 import { IDataResults } from "../utils/types";
-import styled from "styled-components";
-import { motion } from "framer-motion";
 import ScreenLayout from "../layout/ScreenLayout";
 import Loader from "../components/Loader";
 

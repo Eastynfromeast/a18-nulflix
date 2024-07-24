@@ -4,7 +4,6 @@ import { getSearchedMovie } from "../utils/api";
 import Loader from "../components/Loader";
 import ScreenLayout from "../layout/ScreenLayout";
 import { IDataResults } from "../utils/types";
-import styled from "styled-components";
 
 function Search() {
 	const location = useLocation();

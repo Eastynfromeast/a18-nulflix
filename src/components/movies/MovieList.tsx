@@ -29,15 +29,6 @@ const moviesVarianst = {
 	},
 };
 
-const movieVariants = {
-	initial: { opacity: 0, scaleX: 0 },
-	animate: { opacity: 1, scaleX: 1, originX: 0, transition: { duration: 0.3 } },
-};
-
-const titleVariants = {
-	hover: { opacity: 1, transition: { delay: 0.2 } },
-};
-
 function MovieList(data: IDataResults) {
 	const [clickedMovie, setClickedMovie] = useState<null | number>(null);
 	const setIsCardOpen = useSetRecoilState(isCardOpen);
