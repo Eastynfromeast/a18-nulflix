@@ -9,6 +9,7 @@ const SearchWrapper = styled.form`
 	position: absolute;
 	top: 35%;
 	right: 15px;
+	width: 235px;
 	color: ${props => props.theme.accentColor};
 	display: flex;
 	flex-direction: column;
@@ -21,6 +22,7 @@ const SearchWrapper = styled.form`
 	@media only screen and (max-width: 480px) {
 		flex-direction: row;
 		justify-content: center;
+		position: static;
 	}
 `;
 
@@ -49,7 +51,7 @@ const ErrorText = styled(motion.p)`
 	color: ${props => props.theme.accentColor};
 	min-height: 1em;
 	padding-top: 5px;
-	max-width: 80%;
+	max-width: 235px;
 `;
 
 interface ISearchForm {
@@ -81,16 +83,12 @@ function SearchForm() {
 	};
 
 	console.log(errors);
+	const windowW = window.innerWidth;
 	return (
-		<SearchWrapper
-			onSubmit={handleSubmit(onValid)}
-			style={{
-				width: isSearchOpen ? 235 : "unset",
-			}}
-		>
+		<SearchWrapper onSubmit={handleSubmit(onValid)}>
 			<motion.svg
 				onClick={toggleSearch}
-				animate={{ x: isSearchOpen ? "-260%" : 0 }}
+				animate={{ x: isSearchOpen ? (windowW > 480 ? "-260%" : "0%") : windowW > 480 ? "350%" : "500%" }}
 				transition={{ type: "tween" }}
 				fill="currentColor"
 				viewBox="0 0 20 20"
