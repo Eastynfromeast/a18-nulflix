@@ -217,9 +217,12 @@ function MovieModal({ clickedMovie, closeModal }: IProps) {
 								</svg>
 							</ExitBtn>
 							<h2>{data?.title}</h2>
-							<Infos>
-								<Tagline>{data.tagline !== "" ? data.tagline : null}</Tagline>
-							</Infos>
+							{data.tagline && (
+								<Infos>
+									<Tagline>{data.tagline !== "" ? data.tagline : null}</Tagline>
+								</Infos>
+							)}
+
 							<RowInfos>
 								<InfoTitle>Released</InfoTitle>
 								<p>{data.release_date}</p>

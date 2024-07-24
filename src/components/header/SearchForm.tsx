@@ -5,9 +5,13 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 const SearchWrapper = styled.form`
-	position: relative;
+	overflow: hidden;
+	position: absolute;
+	top: 35%;
+	right: 15px;
 	color: ${props => props.theme.accentColor};
 	display: flex;
+	flex-direction: column;
 	align-items: center;
 	svg {
 		height: 30px;
@@ -15,6 +19,7 @@ const SearchWrapper = styled.form`
 		z-index: 9;
 	}
 	@media only screen and (max-width: 480px) {
+		flex-direction: row;
 		justify-content: center;
 	}
 `;
@@ -25,7 +30,7 @@ const SearchInput = styled(motion.input)`
 	right: 0px;
 	padding: 5px 10px;
 	padding-inline: 0;
-	padding-left: 30px;
+	padding-left: 45px;
 	color: ${props => props.theme.textColor};
 	font-size: 16px;
 	background-color: transparent;
@@ -39,13 +44,26 @@ const SearchInput = styled(motion.input)`
 	}
 `;
 
+const ErrorText = styled(motion.p)`
+	display: block;
+	color: ${props => props.theme.accentColor};
+	min-height: 1em;
+	padding-top: 5px;
+	max-width: 80%;
+`;
+
 interface ISearchForm {
 	keyword: string;
 }
 
 function SearchForm() {
 	const [isSearchOpen, setIsSearchOpen] = useState(false);
-	const { register, handleSubmit, resetField } = useForm<ISearchForm>();
+	const {
+		register,
+		handleSubmit,
+		resetField,
+		formState: { errors },
+	} = useForm<ISearchForm>();
 	const navigate = useNavigate();
 	const onValid = (data: ISearchForm) => {
 		navigate(`/search?keyword=${data.keyword}`);
@@ -55,18 +73,25 @@ function SearchForm() {
 	const inputAnimation = useAnimation();
 	const toggleSearch = () => {
 		if (isSearchOpen) {
-			inputAnimation.start({ scaleX: 0 });
+			inputAnimation.start({ scaleX: 0, opacity: 0 });
 		} else {
-			inputAnimation.start({ scaleX: 1 });
+			inputAnimation.start({ scaleX: 1, opacity: 1 });
 		}
 		setIsSearchOpen(prev => !prev);
 	};
+
+	console.log(errors);
 	return (
-		<SearchWrapper onSubmit={handleSubmit(onValid)}>
+		<SearchWrapper
+			onSubmit={handleSubmit(onValid)}
+			style={{
+				width: isSearchOpen ? 235 : "unset",
+			}}
+		>
 			<motion.svg
 				onClick={toggleSearch}
-				animate={{ x: isSearchOpen ? -170 : 0 }}
-				transition={{ type: "tween", delay: 0.25 }}
+				animate={{ x: isSearchOpen ? "-260%" : 0 }}
+				transition={{ type: "tween" }}
 				fill="currentColor"
 				viewBox="0 0 20 20"
 				xmlns="http://www.w3.org/2000/svg"
@@ -78,12 +103,16 @@ function SearchForm() {
 				></path>
 			</motion.svg>
 			<SearchInput
-				initial={{ scaleX: 0 }}
+				initial={{ scaleX: 0, opacity: 0 }}
 				animate={inputAnimation}
-				transition={{ type: "tween" }}
-				{...register("keyword", { required: "Please write down more than 2 Roman alphabets", minLength: 2 })}
+				transition={{ type: "tween", delay: 0.25 }}
+				{...register("keyword", {
+					required: "Please write down more than 2 Roman alphabets",
+					minLength: { value: 2, message: "You need to put minimun 2 letters..." },
+				})}
 				placeholder="Search a movie..."
 			/>
+			<ErrorText>{errors?.keyword && errors.keyword.message}</ErrorText>
 		</SearchWrapper>
 	);
 }

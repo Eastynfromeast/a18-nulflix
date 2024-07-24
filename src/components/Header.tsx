@@ -5,7 +5,7 @@ import { isDarkAtom } from "../utils/atom";
 import Navigator from "./header/Navigator";
 import Logo from "./header/Logo";
 import ThemeSwitch from "./header/ThemeSwitch";
-import SearchForm from "./header/SearchFrom";
+import SearchForm from "./header/SearchForm";
 
 const Nav = styled(motion.nav)`
 	width: 100%;
