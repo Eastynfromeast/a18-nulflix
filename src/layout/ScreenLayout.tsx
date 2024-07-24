@@ -2,11 +2,16 @@ import styled from "styled-components";
 import { IDataResults } from "../utils/types";
 import MovieList from "../components/movies/MovieList";
 import { useMatch } from "react-router-dom";
+import { motion } from "framer-motion";
+import SearchResult from "../components/search/SearchResult";
 
 const Container = styled.div`
 	position: relative;
 	padding: 15px;
 	padding-top: 160px;
+	@media only screen and (max-width: 480px) {
+		padding-top: 200px;
+	}
 `;
 
 const SearchTitle = styled.div`
@@ -33,23 +38,17 @@ const SearchTitle = styled.div`
 
 interface IScreenProps {
 	movies: IDataResults;
-	searchTitle?: string | null;
+	keyword?: string | null;
 }
 
-function ScreenLayout({ movies, searchTitle = null }: IScreenProps) {
+function ScreenLayout({ movies, keyword = null }: IScreenProps) {
 	const searchMatch = useMatch("/search");
 	return (
 		<Container>
 			{" "}
+			{searchMatch && <SearchResult keyword={keyword === null ? "no keyword" : keyword} resultLength={movies?.results.length} />}
 			{movies && (
 				<>
-					{searchMatch && (
-						<SearchTitle>
-							<h3>
-								The keyword is <span>&quot;{searchTitle}&quot;</span>
-							</h3>
-						</SearchTitle>
-					)}
 					<MovieList {...movies} />
 				</>
 			)}

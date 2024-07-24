@@ -19,7 +19,7 @@ function Search() {
 		<>
 			{isLoading && <Loader text="Searching the movie..." />}
 
-			{data && <ScreenLayout movies={data} searchTitle={keyword} />}
+			{data && <ScreenLayout movies={data} keyword={keyword} />}
 		</>
 	);
 }

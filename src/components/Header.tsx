@@ -29,6 +29,7 @@ const UtilItems = styled.div`
 	margin-bottom: 10px;
 	@media only screen and (max-width: 480px) {
 		flex-direction: column;
+		margin-bottom: 15px;
 	}
 `;
 

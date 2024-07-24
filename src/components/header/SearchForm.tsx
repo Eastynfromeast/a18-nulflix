@@ -12,6 +12,7 @@ const SearchWrapper = styled.form`
 	width: 235px;
 	color: ${props => props.theme.accentColor};
 	display: flex;
+	flex-wrap: wrap;
 	flex-direction: column;
 	align-items: center;
 	svg {
@@ -20,6 +21,7 @@ const SearchWrapper = styled.form`
 		z-index: 9;
 	}
 	@media only screen and (max-width: 480px) {
+		width: 100%;
 		flex-direction: row;
 		justify-content: center;
 		position: static;
@@ -51,7 +53,8 @@ const ErrorText = styled(motion.p)`
 	color: ${props => props.theme.accentColor};
 	min-height: 1em;
 	padding-top: 5px;
-	max-width: 235px;
+	max-width: 180px;
+	line-height: 1.35;
 `;
 
 interface ISearchForm {
@@ -82,7 +85,6 @@ function SearchForm() {
 		setIsSearchOpen(prev => !prev);
 	};
 
-	console.log(errors);
 	const windowW = window.innerWidth;
 	return (
 		<SearchWrapper onSubmit={handleSubmit(onValid)}>
@@ -106,7 +108,7 @@ function SearchForm() {
 				transition={{ type: "tween", delay: 0.25 }}
 				{...register("keyword", {
 					required: "Please write down more than 2 Roman alphabets",
-					minLength: { value: 2, message: "You need to put minimun 2 letters..." },
+					minLength: { value: 2, message: "You need to put minimum 2 letters..." },
 				})}
 				placeholder="Search a movie..."
 			/>
