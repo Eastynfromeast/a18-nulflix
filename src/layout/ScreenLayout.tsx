@@ -2,7 +2,6 @@ import styled from "styled-components";
 import { IDataResults } from "../utils/types";
 import MovieList from "../components/movies/MovieList";
 import { useMatch } from "react-router-dom";
-import { motion } from "framer-motion";
 import SearchResult from "../components/search/SearchResult";
 
 const Container = styled.div`

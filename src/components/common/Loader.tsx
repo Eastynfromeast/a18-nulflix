@@ -1,8 +1,6 @@
 import { RotatingLines } from "react-loader-spinner";
 import styled from "styled-components";
 import { motion } from "framer-motion";
-import { useRecoilValue } from "recoil";
-import { isDarkAtom } from "../../utils/atom";
 
 interface IText {
 	text: string;
