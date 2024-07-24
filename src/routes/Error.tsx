@@ -1,7 +1,7 @@
 import { isRouteErrorResponse, useRouteError } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { isDarkAtom } from "../utils/atom";
-import Header from "../components/Header";
+import Header from "../components/header/Header";
 import styled from "styled-components";
 import "../style/reset.css";
 

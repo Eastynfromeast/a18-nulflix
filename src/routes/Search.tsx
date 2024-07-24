@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { useLocation } from "react-router-dom";
 import { getSearchedMovie } from "../utils/api";
-import Loader from "../components/Loader";
+import Loader from "../components/common/Loader";
 import ScreenLayout from "../layout/ScreenLayout";
 import { IDataResults } from "../utils/types";
 

@@ -2,7 +2,7 @@ import { IDataResults } from "../utils/types";
 import { useQuery } from "@tanstack/react-query";
 import { getComingSoon } from "../utils/api";
 import ScreenLayout from "../layout/ScreenLayout";
-import Loader from "../components/Loader";
+import Loader from "../components/common/Loader";
 
 function ComingSoon() {
 	const { data, isLoading } = useQuery<IDataResults>({

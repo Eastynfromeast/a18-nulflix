@@ -3,7 +3,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useQuery } from "@tanstack/react-query";
 import { getMovie, makeBgPath, makeImagePath } from "../../utils/api";
 import { IMovieDetail } from "../../utils/types";
-import Loader from "../Loader";
+import Loader from "../common/Loader";
 import defaultImg from "../../assets/img/default_card_nulflix_0.jpg";
 
 const rumos = keyframes`
@@ -25,7 +25,6 @@ const Overlay = styled(motion.div)`
 	position: fixed;
 	top: 0;
 	left: 0;
-	background-size: cover;
 	z-index: 10;
 	@media only screen and (max-width: 480px) {
 		flex-direction: column;

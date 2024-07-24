@@ -1,11 +1,11 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import styled from "styled-components";
 import { useRecoilValue } from "recoil";
-import { isDarkAtom } from "../utils/atom";
-import Navigator from "./header/Navigator";
-import Logo from "./header/Logo";
-import ThemeSwitch from "./header/ThemeSwitch";
-import SearchForm from "./header/SearchForm";
+import { isDarkAtom } from "../../utils/atom";
+import Navigator from "./Navigator";
+import Logo from "./Logo";
+import ThemeSwitch from "./ThemeSwitch";
+import SearchForm from "./SearchForm";
 
 const Nav = styled(motion.nav)`
 	width: 100%;

@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom";
-import Header from "./components/Header";
+import Header from "./components/header/Header";
 import { ThemeProvider } from "styled-components";
 import GlobalStyle from "./style/GlobalStyle";
 import { useRecoilValue } from "recoil";

@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getPopular } from "../utils/api";
 import { IDataResults } from "../utils/types";
 import ScreenLayout from "../layout/ScreenLayout";
-import Loader from "../components/Loader";
+import Loader from "../components/common/Loader";
 
 function Popular() {
 	const { data, isLoading } = useQuery<IDataResults>({
