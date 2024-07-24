@@ -5,6 +5,7 @@ import GlobalStyle from "./style/GlobalStyle";
 import { useRecoilValue } from "recoil";
 import { isDarkAtom } from "./utils/atom";
 import { darkTheme, lightTheme } from "./theme/theme";
+import Footer from "./components/common/Footer";
 
 function App() {
 	const isDark = useRecoilValue(isDarkAtom);
@@ -14,6 +15,7 @@ function App() {
 				<GlobalStyle />
 				<Header />
 				<Outlet />
+				<Footer />
 			</ThemeProvider>
 		</>
 	);
