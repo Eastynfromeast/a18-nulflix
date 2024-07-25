@@ -48,4 +48,4 @@
   ![Screenshot 2024-07-23 at 4 02 05 PM](https://github.com/user-attachments/assets/799ee9d0-cd3a-4597-b091-6f717d9e1d63)
 
 - Search with default image
-  ![Screenshot 2024-07-23 at 2 50 51 PM](https://github.com/user-attachments/assets/49c4e07e-8ce5-4dd9-a67e-1193b92a6e35)
+  ![Screenshot 2024-07-25 at 9 59 29 AM](https://github.com/user-attachments/assets/e4db816f-dca4-43be-8ff3-cfb311c5d0cd)
