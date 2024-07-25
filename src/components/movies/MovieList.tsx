@@ -4,7 +4,6 @@ import { IDataResults, IMovie } from "../../utils/types";
 import MovieModal from "./MovieModal";
 import { useState } from "react";
 import { useSetRecoilState } from "recoil";
-import { isCardOpen } from "../../utils/atom";
 import MovieCard from "./MovieCard";
 
 const MovieGrid = styled(motion.ul)`
@@ -31,14 +30,11 @@ const moviesVarianst = {
 
 function MovieList(data: IDataResults) {
 	const [clickedMovie, setClickedMovie] = useState<null | number>(null);
-	const setIsCardOpen = useSetRecoilState(isCardOpen);
 	const onClickMovie = (id: number) => {
 		setClickedMovie(id);
-		setIsCardOpen(true);
 	};
 	const closeModal = () => {
 		setClickedMovie(null);
-		setIsCardOpen(false);
 	};
 
 	return (

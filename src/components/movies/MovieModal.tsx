@@ -82,6 +82,8 @@ const Card = styled(motion.div)`
 
 const PosterCard = styled(Card)<{ $bgPhoto: string }>`
 	background-image: url(${props => props.$bgPhoto});
+	background-size: cover;
+	background-position: center;
 `;
 
 const ContextCard = styled(Card)`
@@ -227,7 +229,7 @@ function MovieModal({ clickedMovie, closeModal }: IProps) {
 
 							<RowInfos>
 								<InfoTitle>Released</InfoTitle>
-								<p>{data.release_date}</p>
+								<p>{data.release_date !== "" ? data.release_date : "unknown"}</p>
 							</RowInfos>
 							<RowInfos>
 								<InfoTitle>Runtime</InfoTitle>

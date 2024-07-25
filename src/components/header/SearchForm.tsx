@@ -55,6 +55,7 @@ const ErrorText = styled(motion.p)`
 	padding-top: 5px;
 	max-width: 180px;
 	line-height: 1.35;
+	transform-origin: right;
 `;
 
 interface ISearchForm {
@@ -112,7 +113,9 @@ function SearchForm() {
 				})}
 				placeholder="Search a movie..."
 			/>
-			<ErrorText>{errors?.keyword && errors.keyword.message}</ErrorText>
+			<ErrorText initial={{ scaleX: 0 }} animate={{ scaleX: isSearchOpen ? 1 : 0 }} transition={{ type: "tween", duration: 0.7 }}>
+				{errors?.keyword && errors.keyword.message}
+			</ErrorText>
 		</SearchWrapper>
 	);
 }

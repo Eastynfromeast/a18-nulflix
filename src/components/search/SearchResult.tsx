@@ -3,7 +3,6 @@ import styled from "styled-components";
 
 const Container = styled.div`
 	width: 100%;
-	min-height: 80vh;
 `;
 
 const SearchTitle = styled.div`
@@ -67,7 +66,7 @@ function SearchResult({ keyword, resultLength }: ISearchResult) {
 				</h3>
 			</SearchTitle>
 			{resultLength === 0 && (
-				<NoMovieNotice variants={noticeVariants} initial="initial" animate="animate">
+				<NoMovieNotice style={{ minHeight: resultLength === 0 ? "80vh" : "unset" }} variants={noticeVariants} initial="initial" animate="animate">
 					<h3>Sorry, There's no movie found :(</h3>
 				</NoMovieNotice>
 			)}
