@@ -3,7 +3,6 @@ import { AnimatePresence, motion } from "framer-motion";
 import { IDataResults, IMovie } from "../../utils/types";
 import MovieModal from "./MovieModal";
 import { useState } from "react";
-import { useSetRecoilState } from "recoil";
 import MovieCard from "./MovieCard";
 
 const MovieGrid = styled(motion.ul)`

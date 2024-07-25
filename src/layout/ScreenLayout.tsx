@@ -13,28 +13,6 @@ const Container = styled.div`
 	}
 `;
 
-const SearchTitle = styled.div`
-	width: 100%;
-	padding: 20px 10px 40px;
-	display: flex;
-	flex-direction: row;
-	justify-content: center;
-	align-items: center;
-	font-size: 24px;
-	h3 {
-		padding: 0 15px 15px;
-		width: auto;
-		border-bottom: 1px solid ${props => props.theme.textColor};
-	}
-	span {
-		display: inline-block;
-		text-transform: uppercase;
-		font-weight: 600;
-		color: ${props => props.theme.accentColor};
-		margin-left: 7px;
-	}
-`;
-
 interface IScreenProps {
 	movies: IDataResults;
 	keyword?: string | null;
