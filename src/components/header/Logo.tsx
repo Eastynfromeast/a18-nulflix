@@ -4,6 +4,7 @@ import { useRecoilValue } from "recoil";
 import { isDarkAtom } from "../../utils/atom";
 import DarkLogoImage from "../../assets/img/logo_dark_nulflix_0.png";
 import LightLogoImage from "../../assets/img/logo_light_nulflix_0.png";
+import { Link } from "react-router-dom";
 
 const LogoWrapper = styled(motion.div)`
 	max-width: 250px;
@@ -34,21 +35,31 @@ function Logo() {
 	const isDarkOn = useRecoilValue(isDarkAtom);
 	return (
 		<LogoWrapper>
-			<AnimatePresence>
-				{isDarkOn ? (
-					<LogoImg layoutId="logoImg" variants={logoVariants} initial="hidden" animate="visible" exit="exit" src={DarkLogoImage} alt="nulflix dark logo img" />
-				) : (
-					<LogoImg
-						layoutId="logoImg"
-						variants={logoVariants}
-						initial="hidden"
-						animate="visible"
-						exit="exit"
-						src={LightLogoImage}
-						alt="nulflix light logo img"
-					/>
-				)}
-			</AnimatePresence>
+			<Link to="/">
+				<AnimatePresence>
+					{isDarkOn ? (
+						<LogoImg
+							layoutId="logoImg"
+							variants={logoVariants}
+							initial="hidden"
+							animate="visible"
+							exit="exit"
+							src={DarkLogoImage}
+							alt="nulflix dark logo img"
+						/>
+					) : (
+						<LogoImg
+							layoutId="logoImg"
+							variants={logoVariants}
+							initial="hidden"
+							animate="visible"
+							exit="exit"
+							src={LightLogoImage}
+							alt="nulflix light logo img"
+						/>
+					)}
+				</AnimatePresence>
+			</Link>
 		</LogoWrapper>
 	);
 }
